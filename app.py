@@ -21,20 +21,14 @@ model = None
 try:
     api_key = os.getenv("MY_API_KEY")
     if not api_key or "your_google_api_key_here" in api_key:
-        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-        print("!!! FATAL ERROR: MY_API_KEY is not set or is invalid in the .env file.")
-        print("!!! Please set your real Google API Key to continue.")
-        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        print("Please set your real Google API Key to continue.")
     else:
         genai.configure(api_key=api_key)
         model = genai.GenerativeModel("gemini-1.5-flash")
-        print("✅ [MCQ Video] Google AI SDK configured successfully.")
+        print("[MCQ Video] Google AI SDK configured successfully.")
 
 except Exception as e:
-    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-    print(f"!!! FATAL ERROR during Google AI setup: {e}")
-    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-
+    print(f"FATAL ERROR during Google AI setup: {e}")
 
 # --- Helper Functions ---
 def clean_json_response(text):
@@ -218,15 +212,12 @@ if __name__ == '__main__':
     
     # Only try to serve the app if the model was configured correctly
     if model is not None:
-        print("===================================================================")
-        print(f"🚀 MCQ from Video starting up...")
         if is_docker:
-            print(f"🐳 Running in Docker container")
-            print(f"📡 Open your web browser and go to: http://localhost:{public_port}")
+            print(f"Running in Docker container")
+            print(f"Open your web browser and go to: http://localhost:{public_port}")
         else:
-            print(f"💻 Running locally")
-            print(f"📡 Open your web browser and go to: http://localhost:{flask_port}")
-        print("===================================================================")
+            print(f"Running locally")
+            print(f"Open your web browser and go to: http://localhost:{flask_port}")
         
         if is_docker:
             # In Docker, use waitress for production
@@ -241,5 +232,5 @@ if __name__ == '__main__':
                 print("🔧 Running with waitress server")
                 serve(app, host="0.0.0.0", port=flask_port)
     else:
-        print("❌ Application failed to start due to configuration error.")
+        print("Application failed to start due to configuration error.")
         exit(1)
