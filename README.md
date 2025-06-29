@@ -29,7 +29,7 @@ Before you can run the application, you must configure your environment variable
 
 1.  Clone the repository:
     ```bash
-    git clone https://github.com/AnantSom/MCQ-Generator-video-.git
+    git clone https://github.com/AnantSom/youtube-ai-quizzer.git
     cd mcq-url
     ```
 
